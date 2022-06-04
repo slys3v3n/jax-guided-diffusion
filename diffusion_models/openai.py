@@ -59,7 +59,7 @@ def openai_512_finetune():
     return openai_512_finetune_wrap(openai_512_finetune_params())
 
 # Kaliyuga pixelart hard
-openai_256_model_kaliyuga_hard = openai.create_openai_256_model(use_checkpoint=use_checkpoint)
+openai_256_model_kaliyuga_hard = openai.create_openai_256_kaliyuga_model(use_checkpoint=use_checkpoint)
 openai_256_model_kaliyuga_hard.labeled_parameters_()
 openai_256_params_kaliyuga_hard = LazyParams.pt('https://huggingface.co/KaliYuga/pixel_art_diffusion_hard_256/resolve/main/pixel_art_diffusion_hard_256.pt')
 openai_256_wrap_kaliyuga_hard = make_openai_model(openai_256_model_kaliyuga_hard)
@@ -67,7 +67,7 @@ def openai_256_kaliyuga_hard():
     return openai_256_wrap_kaliyuga_hard(openai_256_params_kaliyuga_hard())
 
 # Kaliyuga pixelart soft
-openai_256_model_kaliyuga_soft = openai.create_openai_256_model(use_checkpoint=use_checkpoint)
+openai_256_model_kaliyuga_soft = openai.create_openai_256_kaliyuga_model(use_checkpoint=use_checkpoint)
 openai_256_model_kaliyuga_soft.labeled_parameters_()
 openai_256_params_kaliyuga_soft = LazyParams.pt('https://huggingface.co/KaliYuga/pixel_art_diffusion_soft_256/resolve/main/pixel_art_diffusion_soft_256.pt')
 openai_256_wrap_kaliyuga_soft = make_openai_model(openai_256_model_kaliyuga_soft)
