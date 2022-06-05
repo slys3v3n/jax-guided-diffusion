@@ -57,7 +57,7 @@ OPENAI_256_KALIYUGA_CONFIG = {
     'model_channels': 128,
     'out_channels': 6,
     'num_res_blocks': 2,
-    'attention_resolutions': (16),
+    'attention_resolutions': (16,),
     'dropout': 0.0,
     'channel_mult': (1, 1, 2, 2, 4, 4),
     'num_classes': None,
