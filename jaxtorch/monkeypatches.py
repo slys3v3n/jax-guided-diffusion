@@ -8,15 +8,18 @@ import jax.numpy as jnp
 import jaxlib
 import numpy as np
 import functools
-from einops import rearrange
+from einops import rearrange, reduce, repeat
+
+from jaxtorch._util import ArrayTypes
+
 
 def register(**kwargs):
     for (attr, fun) in kwargs.items():
         if hasattr(jnp.zeros([]), attr):
             print(f'Not monkeypatching DeviceArray and Tracer with `{attr}`, because that method is already implemented.', file=sys.stderr)
             continue
-        setattr(jaxlib.xla_extension.DeviceArrayBase, attr, fun)
-        setattr(jax.interpreters.xla.DeviceArray, attr, fun)
+        for ty in ArrayTypes:
+            setattr(ty, attr, fun)
         setattr(jax.core.Tracer, attr, fun)
 
 def broadcast_to(arr, shape):
@@ -48,10 +51,15 @@ register(
     arccos = jnp.arccos,
     log = jnp.log,
     exp = jnp.exp,
+    expm1 = jnp.expm1,
+    log1p = jnp.log1p,
+    neg = lambda x: -x,
     clamp = lambda a, minval=None, maxval=None: jnp.clip(a, a_min=minval, a_max=maxval),
     unsqueeze = lambda arr, axis=0: jnp.expand_dims(arr, axis),
     rearrange = rearrange,
+    reduce = reduce,
     broadcast_to = broadcast_to,
     isfinite = jnp.isfinite,
     isnan = jnp.isnan,
+    logical_not = jnp.logical_not,
 )
