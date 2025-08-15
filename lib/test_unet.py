@@ -71,6 +71,13 @@ def test_Upsample2D():
     old_result = old_module(x_torch)
     check(old_result, new_result)
 
+    new_module = unet.Upsample2D(C, use_conv=False)
+    old_module = old_unet.Upsample(C, use_conv=False)
+
+    new_result = new_module(ParamState([]), x)
+    old_result = old_module(x_torch)
+    check(old_result, new_result)
+
 
 @torch.no_grad()
 def test_Downsample2D():
